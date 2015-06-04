@@ -15,7 +15,7 @@
  use Illuminate\Support\Facades\Lang;
 
  Route::filter('throttle', function ($route, $request, $limit = 10, $time = 60) {
-     if (!Throttle::attempt($request, $limit, $time)) {
-         throw new ValidationException(new MessageBag([Lang::get('app.errors.throttle', ['cooldown' => ceil((float) $time * 60)])]));
+     if (!Throttle::attempt($request, $limit, $time/60)) {
+         throw new ValidationException(new MessageBag([Lang::get('app.errors.throttle', ['cooldown' => ceil((float) $time)])]));
      }
  });
