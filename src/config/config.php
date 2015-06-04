@@ -20,7 +20,7 @@ return [
     | driver set in config/cache.php. Setting it to null will use the driver
     | you have set as default in config/cache.php.
     |
-    | Default: null
+    | Default: 'database'
     |
     */
 
