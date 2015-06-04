@@ -24,6 +24,6 @@ return [
     |
     */
 
-    'driver' => null,
+    'driver' => 'database',
 
 ];
