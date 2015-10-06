@@ -15,9 +15,14 @@
  use Illuminate\Support\Facades\Lang;
  use Illuminate\Support\Facades\Config;
 
- Route::filter('throttle', function ($route, $request, $limit = 10, $time = 60) {
+ Route::filter('throttle', function ($route, $request, $limit = 10, $time = 60, $userId = -1) {
       if ( !Config::get('app.debug') ) {
-          if (!Throttle::attempt($request, $limit, $time/60)) {
+          $data = [
+             'ip' => 'user:' . $userId . ', ip:' . $request->getClientIp(),
+             'route' => $request->path(),
+          ];
+
+          if (!Throttle::attempt($data, $limit, $time/60)) {
              throw new ValidationException(new MessageBag([Lang::get('app.errors.throttle', ['cooldown' => ceil((float) $time)])]));
           }
       }
